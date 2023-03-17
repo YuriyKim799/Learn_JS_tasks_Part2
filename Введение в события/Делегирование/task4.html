@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      height: 2000px;
+      /* добавим body прокрутку, подсказка должна работать и с прокруткой */
+    }
+
+    .tooltip {
+      /* немного стилизуем подсказку, можете использовать свои стили вместо этих */
+      position: fixed;
+      padding: 10px 20px;
+      border: 1px solid #b3c9ce;
+      border-radius: 4px;
+      text-align: center;
+      font: italic 14px/1.3 sans-serif;
+      color: #333;
+      background: #fff;
+      box-shadow: 3px 3px 3px rgba(0, 0, 0, .3);
+    }
+  </style>
+</head>
+
+<body>
+
+  <p>ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя</p>
+  <p>ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя</p>
+
+  <button data-tooltip="эта подсказка должна быть длиннее, чем элемент">Короткая кнопка</button>
+  <button data-tooltip="HTML<br> подсказка">Ещё кнопка</button>
+
+  <p>Прокрутите страницу, чтобы кнопки оказались у верхнего края, а затем проверьте правильно ли выводятся подсказки.
+  </p>
+
+
+  <script>
+    // ...ваш код...
+
+    const spanEl = document.createElement('span');
+    spanEl.classList.add('tooltip');
+
+    document.body.addEventListener('mouseover', event => {
+      if (event.target.tagName !== 'BUTTON') return;
+      spanEl.innerText = event.target.dataset.tooltip;
+      event.target.parentNode.prepend(spanEl)
+      let sizeOptions = event.target.getBoundingClientRect();
+
+      let left = sizeOptions.left + (event.target.offsetWidth - spanEl.offsetWidth) / 2;
+      if (left < 0) left = 0;
+      let top = sizeOptions.top - spanEl.offsetHeight - 5;
+      if (top < 0) { // если подсказка не помещается сверху, то отображать её снизу
+        top = sizeOptions.top + event.target.offsetHeight + 5;
+      }
+      spanEl.style.left = left + 'px';
+      spanEl.style.top = top + 'px';
+    })
+    document.body.addEventListener('mouseout', event => {
+      spanEl.remove()
+    })
+  </script>
+
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    span:hover {
+      font-weight: 600;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <ul class="tree" id="tree">
+    <li>Животные
+      <ul>
+        <li>Млекопитающие
+          <ul>
+            <li>Коровы</li>
+            <li>Ослы</li>
+            <li>Собаки</li>
+            <li>Тигры</li>
+          </ul>
+        </li>
+        <li>Другие
+          <ul>
+            <li>Змеи</li>
+            <li>Птицы</li>
+            <li>Ящерицы</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>Рыбы
+      <ul>
+        <li>Аквариумные
+          <ul>
+            <li>Гуппи</li>
+            <li>Скалярии</li>
+          </ul>
+        </li>
+        <li>Морские
+          <ul>
+            <li>Морская форель</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <script>
+
+    document.querySelectorAll('li').forEach(el => {
+      const spanEl = document.createElement('span');
+      el.insertAdjacentElement('afterbegin', spanEl)
+      spanEl.append(spanEl.nextSibling);
+    })
+
+    document.querySelector('.tree').addEventListener('click', event => {
+      if (event.target.tagName !== 'SPAN') {
+        return;
+      }
+      let ulWrapEl = event.target.parentNode.querySelector('ul');
+      if (!ulWrapEl) return;
+      ulWrapEl.hidden = !ulWrapEl.hidden;
+    })
+
+
+  </script>
+</body>
+
+</html>

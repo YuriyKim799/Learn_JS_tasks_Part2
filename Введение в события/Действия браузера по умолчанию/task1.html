@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  Почему не работает return false ?
+  Почему в коде ниже return false не работает ?
+  Браузер переходит по указанной ссылке, но нам этого не нужно.
+  Как поправить?
+  <a href="https://w3.org" onclick="handler(event)">браузер откроет w3.org</a>
+
+  <script>
+    function handler(event) {
+      alert("...")
+      // return false
+      event.preventDefault();
+    }
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    table {
+      background-color: grey;
+    }
+
+    th {
+      text-align: center;
+      font-weight: bold;
+    }
+
+    td {
+      width: 150px;
+      white-space: nowrap;
+      text-align: center;
+      vertical-align: middle;
+      padding: 10px;
+    }
+
+    .renderedTd .textareaStyle {
+      padding: 0;
+      margin: 0;
+      overflow: none;
+      border: none;
+      resize: none;
+      outline: none;
+      display: block;
+    }
+
+
+
+    .nw {
+      background-color: #999;
+    }
+
+    .n {
+      background-color: #03f;
+      color: #fff;
+    }
+
+    .ne {
+      background-color: #ff6;
+    }
+
+    .w {
+      background-color: #ff0;
+    }
+
+    .c {
+      background-color: #60c;
+      color: #fff;
+    }
+
+    .e {
+      background-color: #09f;
+      color: #fff;
+    }
+
+    .sw {
+      background-color: #963;
+      color: #fff;
+    }
+
+    .s {
+      background-color: #f60;
+      color: #fff;
+    }
+
+    .se {
+      background-color: #0c3;
+      color: #fff;
+    }
+
+    .buttons {
+      position: absolute;
+    }
+
+    .renderedTd {
+      position: relative;
+      padding: 0;
+    }
+
+    /* .renderedTd {
+      margin: 0;
+      overflow: none;
+      border: none;
+      resize: none;
+      outline: none;
+      display: block;
+    } */
+  </style>
+  <title>Document</title>
+</head>
+
+<body>
+  Редактирование TD по клику
+  Сделайте ячейки таблицы редактируемыми по клику.
+  По клику – ячейка должна стать «редактируемой» (textarea появляется внутри), мы можем изменять HTML. Изменение размера
+  ячейки должно быть отключено.
+  Кнопки OK и ОТМЕНА появляются ниже ячейки и, соответственно, завершают/отменяют редактирование.
+  Только одну ячейку можно редактировать за один раз. Пока td в «режиме редактирования», клики по другим ячейкам
+  игнорируются.
+  Таблица может иметь множество ячеек. Используйте делегирование событий.
+
+  <p>Кликните на ячейку таблицы, чтобы отредактировать её. Нажмите ОК или ОТМЕНА, когда закончите.</p>
+
+  <table id="bagua-table">
+    <tr>
+      <th colspan="3">Квадрат <em>Bagua</em>: Направление, Элемент, Цвет, Значение</th>
+    </tr>
+    <tr>
+      <td class="nw"><strong>Северо-Запад</strong>
+        <br>Металл
+        <br>Серебро
+        <br>Старейшины
+      </td>
+      <td class="n"><strong>Север</strong>
+        <br>Вода
+        <br>Синий
+        <br>Перемены
+      </td>
+      <td class="ne"><strong>Северо-Восток</strong>
+        <br>Земля
+        <br>Жёлтый
+        <br>Направление
+      </td>
+    </tr>
+    <tr>
+      <td class="w"><strong>Запад</strong>
+        <br>Металл
+        <br>Золото
+        <br>Молодость
+      </td>
+      <td class="c"><strong>Центр</strong>
+        <br>Всё
+        <br>Пурпурный
+        <br>Гармония
+      </td>
+      <td class="e"><strong>Восток</strong>
+        <br>Дерево
+        <br>Синий
+        <br>Будущее
+      </td>
+    </tr>
+    <tr>
+      <td class="sw"><strong>Юго-Запад</strong>
+        <br>Земля
+        <br>Коричневый
+        <br>Спокойствие
+      </td>
+      <td class="s"><strong>Юг</strong>
+        <br>Огонь
+        <br>Оранжевый
+        <br>Слава
+      </td>
+      <td class="se"><strong>Юго-Восток</strong>
+        <br>Дерево
+        <br>Зеленый
+        <br>Роман
+      </td>
+    </tr>
+
+  </table>
+  <script>
+    // let targetParams = target.getBoundingClientRect();
+    // textAreaEl.style.height = targetParams.height - 20 + "px"
+    const formEl = document.getElementById('bagua-table');
+    let tdElRendered;
+    formEl.addEventListener('click', (event) => {
+      let target = event.target.closest('td,.buttonOk,.buttonCancel');
+      if (!formEl.contains(target)) return;
+      if (target.className == 'buttonCancel') {
+        okOrCancel(tdElRendered.elem, false);
+      } else if (target.className == 'buttonOk') {
+        okOrCancel(tdElRendered.elem, true);
+      } else if (target.nodeName == 'TD') {
+        if (tdElRendered) return;
+        replaceEl(target);
+      }
+
+    })
+
+    function replaceEl(target) {
+      tdElRendered = {
+        elem: target,
+        data: target.innerHTML
+      }
+      console.log(tdElRendered.elem);
+      target.classList.add('renderedTd');
+      let textAreaEl = document.createElement('textarea');
+      textAreaEl.classList.add('textareaStyle');
+      textAreaEl.style.width = target.clientWidth + 'px';
+      textAreaEl.style.height = target.clientHeight + 'px';
+      textAreaEl.value = target.innerHTML;
+      target.innerHTML = '';
+      target.appendChild(textAreaEl);
+      textAreaEl.focus();
+      console.log(textAreaEl);
+      target.insertAdjacentHTML("beforeEnd",
+        '<div class="buttons"><button class="buttonOk">OK</button><button class="buttonCancel">CANCEL</button></div>'
+      );
+    }
+
+    function okOrCancel(elem, state) {
+
+      if (state) {
+        elem.innerHTML = elem.firstChild.value;
+      } else {
+        elem.innerHTML = tdElRendered.data;
+      }
+      elem.classList.remove('renderedTd');
+      tdElRendered = null;
+    }
+
+
+
+
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    div {
+      height: 200px;
+      width: 300px;
+      border: 20px solid green;
+      overflow: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis nulla sit, corrupti ad incidunt veritatis eos
+      libero, quasi voluptatum nisi, nihil ut hic. Quisquam hic, aspernatur veniam beatae adipisci abm ipsum dolor sit
+      amet consectetur adipisicing elit. Debitis nulla sit, corrupti ad incidunt veritatis eos libero, quasi voluptatum
+      nisi, nihil ut hic. Quisquam amet consectetur
+      adipisicing elit. Debitis nulla sit, corrupti ad incidunt veritatis eos libero, quasi voluptatum nisi, nihil ut
+      hic.
+      Quisquam hic, asperdolor sit amet consectetur adipisicing elit. Debitis nulla sit, corrupti ad
+      incidunt verQuisquam hic, aspernatur veniam beatae adipisci ab.m ipsum dolor sit amet consectetur
+      adipisicing elit. Debitis nulla sit, corrupti ad incidunt veritatis eos libero, quasi voluptatum nisi, nihil ut
+      hic.
+      Quisquam hic, aspernatur veniam beatae adipisci ab..</p>
+  </div>
+  <script>
+    // Найти размер прокрутки снизу
+
+    // Свойство elem.scrollTop содержит размер прокрученной области при отсчёте сверху. А как подсчитать размер прокрутки снизу(назовём его scrollBottom) ?
+    // Напишите соответствующее выражение для произвольного элемента elem.
+    // P.S.Проверьте: если прокрутки нет вообще или элемент полностью прокручен – оно должно давать 0.
+
+    const pEl = document.querySelector('div');
+
+
+    setInterval(() => {
+      let result = pEl.scrollHeight - pEl.scrollTop - pEl.clientHeight;
+      if (pEl.scrollTop == 0) {
+        console.log('прокрутки нет');
+      } else if (result > 0) {
+        console.log('размер прокрутки ' + result);
+      } else if (result == 0) {
+        console.log('полностью прокручен');
+      }
+    }, 2000)
+
+
+
+
+  </script>
+</body>
+
+</html>

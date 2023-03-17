@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1><span style="color: red;" class="myTimerH"></span>:<span style="color: green;" class="myTimerM"></span>:<span
+      style="color: blue;" class="myTimerS"></span></h1>
+
+  <!-- клик по этой кнопке вызовет clockStart() -->
+  <input type="button" onclick="clockStart()" value="Старт">
+
+  <!-- клик по этой кнопке вызовет clockStop() -->
+  <input type="button" onclick="clockStop()" value="Стоп">
+  <script>
+    // Цветные часы с использованием setInterval
+    const myTimerElH = document.querySelector('.myTimerH');
+    const myTimerElM = document.querySelector('.myTimerM');
+    const myTimerElS = document.querySelector('.myTimerS');
+
+    myTimerElH.innerHTML = new Date().getHours();
+    myTimerElM.innerHTML = new Date().getMinutes().toString().padStart(2,0);
+    myTimerElS.innerHTML = new Date().getSeconds().toString().padStart(2,0);
+
+    let timerId;
+    function clockStart() {
+      timerId = setInterval(() => {
+        myTimerElH.innerHTML = new Date().getHours(),
+          myTimerElM.innerHTML = new Date().getMinutes().toString().padStart(2,0);
+          myTimerElS.innerHTML = new Date().getSeconds().toString().padStart(2,0);
+      }, 1000)
+    }
+
+    function clockStop() {
+      clearInterval(timerId)
+    }
+
+  </script>
+</body>
+
+</html>

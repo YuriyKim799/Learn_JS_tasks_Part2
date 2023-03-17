@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    #field {
+      width: 200px;
+      height: 200px;
+      border: 10px groove black;
+      background-color: #00FF00;
+      position: relative;
+    }
+
+    #ball {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+    }
+  </style>
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="field">
+    <img src="https://en.js.cx/clipart/ball.svg" id="ball"> . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+    . . . . . . . . .
+    . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  . . . . . . .
+  
+  </div>
+  <script>
+    let ballEl = document.body.querySelector("#ball");
+    let fieldEl = document.body.querySelector("#field");
+
+    function moveInCenter(el, parent) {
+      
+      let elСoord = {
+        centerX: el.offsetWidth / 2,
+        centerY: el.offsetHeight / 2,
+      }
+      console.log(elСoord.centerY);
+      console.log(elСoord.centerX);
+
+      let parentСoord = {
+        centerX: parent.clientWidth / 2,
+        centerY: parent.clientHeight / 2,
+      }
+
+      console.log(parentСoord.centerY);
+      console.log(parentСoord.centerX);
+
+      el.style.top = parentСoord.centerY - elСoord.centerY + "px";
+      el.style.left = parentСoord.centerX - elСoord.centerX + "px";
+    }
+
+    moveInCenter(ballEl, fieldEl);
+  </script>
+</body>
+
+</html>

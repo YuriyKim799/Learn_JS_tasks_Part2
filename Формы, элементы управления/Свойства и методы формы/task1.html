@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  Добавьте пункт к выпадающему списку
+  Используя JavaScript:
+
+  Выведите значение и текст выбранного пункта.
+  Добавьте пункт: <option value="classic">Классика</option>.
+  Сделайте его выбранным.
+
+  <select id="genres">
+    <option value="rock">Рок</option>
+    <option value="blues" selected>Блюз</option>
+  </select>
+
+  <script>
+    const formEl = document.getElementById('genres');
+    let optionEl = document.createElement('option');
+    optionEl.value = "classic";
+    optionEl.textContent = "Classic";
+    optionEl.selected = true;
+    formEl.insertAdjacentElement('afterbegin', optionEl);
+    console.log(optionEl);
+    console.log(formEl);
+  </script>
+</body>
+
+</html>
